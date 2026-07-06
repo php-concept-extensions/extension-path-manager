@@ -70,6 +70,34 @@ final class PathManager
         return substr($path, strlen($root) + 1);
     }
 
+    /**
+     * @param list<string> $paths
+     * @return list<string>
+     */
+    public function rootList(array $paths): array
+    {
+        $resolved = [];
+        foreach ($paths as $path) {
+            $resolved[] = $this->root($path);
+        }
+
+        return $resolved;
+    }
+
+    /**
+     * @param array<string, string> $paths
+     * @return array<string, string>
+     */
+    public function rootMap(array $paths): array
+    {
+        $resolved = [];
+        foreach ($paths as $key => $path) {
+            $resolved[$key] = $this->root($path);
+        }
+
+        return $resolved;
+    }
+
     private function normalizePath(string $path): string
     {
         return str_replace('\\', '/', $path);
